@@ -1,0 +1,261 @@
+:root {
+    --bg: #f5f7fb;
+    --card: #fff;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --success: #10b981;
+    --danger: #ef4444;
+    --glass: rgba(255, 255, 255, 0.6);
+}
+
+body {
+    font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    margin: 0;
+    background: linear-gradient(180deg, #eef2ff 0%, var(--bg)100%);
+    color: #111;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 28px auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.sub {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.top-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+button {
+    background: var(--accent);
+    color: #fff;
+    border: 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button.secondary {
+    background: #fff;
+    color: var(--accent);
+    border: 1px solid rgba(37, 99, 235, .12);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 18px;
+}
+
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(16, 24, 40, .06);
+}
+
+.rooms {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.room {
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(15, 23, 42, .04);
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.room h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.meta {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.date-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 12px 0;
+}
+
+input,
+select,
+textarea {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, .06);
+    width: 100%;
+}
+
+.reservations-list {
+    max-height: 400px;
+    overflow: auto;
+    margin-top: 10px;
+}
+
+.res-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, .04);
+    margin-bottom: 8px;
+}
+
+.tag {
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.tag.pending {
+    background: #fff4e5;
+    color: #92400e;
+    border: 1px solid rgba(243, 141, 48, .08);
+}
+
+.tag.approved {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid rgba(16, 185, 129, .08);
+}
+
+.tag.declined {
+    background: #fff1f2;
+    color: #9f1239;
+    border: 1px solid rgba(239, 68, 68, .06);
+}
+
+/* Login */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 6, 23, .4);
+    z-index: 30;
+}
+
+.login-box {
+    width: 360px;
+    background: var(--card);
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.small {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.admin-panel {
+    display: none;
+}
+
+.flex {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.toast-wrap {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    min-width: 220px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    opacity: .96;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+footer {
+    margin-top: 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 6px;
+    vertical-align: middle;
+}
+
+.legend-dot.success {
+    background: var(--success);
+}
+
+.legend-dot.danger {
+    background: var(--danger);
+}
+
+@media(max-width:880px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rooms {
+        grid-template-columns: 1fr;
+    }
+
+    .login-box {
+        width: 90vw;
+    }
+}
+
+/* small utility */
+button[disabled] {
+    opacity: .5;
+    cursor: not-allowed;
+}

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Reserve — Academic Building Room Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Reserve — Academic Building room management</h1>
+            </div>
+            <div class="top-actions">
+                <div id="who" class="muted small">Not signed in</div>
+                <button id="loginBtn">Sign in</button>
+                <button id="logoutBtn" style="display:none;" class="secondary">Sign out</button>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- Left: Dashboard -->
+            <section class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <strong>Room overview</strong>
+                    <div class="small muted">Date: <span id="todayLabel"></span></div>
+                </div>
+
+                <div class="date-row">
+                    <label style="min-width:58px;" class="small muted">For date</label>
+                    <input type="date" id="filterDate">
+                    <select id="buildingFilter" style="width:160px;">
+                        <option value="All">All floors</option>
+                        <option value="2nd floor">2nd floor</option>
+                        <option value="3rd floor">3rd floor</option>
+                        <option value="4th floor">4th floor</option>
+                    </select>
+                </div>
+
+                <div class="rooms card" id="roomsContainer" style="margin-top:12px;box-shadow:none;padding:0;"></div>
+
+                <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                    <div class="small muted">Legend:
+                        <span class="legend-dot success"></span>Available
+                        <span class="legend-dot danger"></span>Booked
+                    </div>
+                    <div class="small muted">Local data saved in browser</div>
+                </div>
+
+                <hr style="margin:14px 0;border:none;border-top:1px solid rgba(15,23,42,.04);">
+
+                <strong>Reservations (for selected date)</strong>
+                <div class="reservations-list" id="reservationsList"></div>
+            </section>
+
+            <!-- Right: Create reservation & admin -->
+            <aside class="card">
+                <strong>Create reservation</strong>
+                <div class="small muted" style="margin-bottom:8px;">Choose a room, date/time and purpose</div>
+
+                <div style="display:grid;gap:8px;">
+                    <label>Room
+                        <select id="roomSelect"></select>
+                    </label>
+                    <label>Date
+                        <input type="date" id="resDate" />
+                    </label>
+                    <label>From time
+                        <input type="time" id="fromTime" />
+                    </label>
+                    <label>To time
+                        <input type="time" id="toTime" />
+                    </label>
+                    <label>Purpose
+                        <textarea id="purpose" rows="2" placeholder="e.g. ACM meeting"></textarea>
+                    </label>
+                    <button id="createResBtn">Send reservation</button>
+                </div>
+
+                <hr style="margin:14px 0;border:none;border-top:1px solid rgba(15,23,42,.04);">
+
+                <div id="adminArea" class="admin-panel">
+                    <strong>Admin panel</strong>
+                    <div class="small muted">Approve or decline incoming reservations</div>
+                    <div id="adminList" style="margin-top:10px;"></div>
+                </div>
+
+            </aside>
+        </div>
+
+        <footer>Built for school project • Semi-static demo using localStorage</footer>
+    </div>
+
+    <!-- Login modal -->
+    <div id="loginModal" class="modal" style="display:none;">
+        <div class="login-box card">
+            <h3 style="margin:0 0 8px 0;">Sign in</h3>
+            <div class="small muted" style="margin-bottom:12px;">
+                Use demo accounts: <strong>student / student123</strong> or <strong>admin / admin123</strong>
+            </div>
+
+            <label>Username<input id="username" autocomplete="username" /></label>
+            <label>Password<input id="password" type="password" autocomplete="current-password" /></label>
+            <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px;">
+                <button id="loginCancel" class="secondary">Cancel</button>
+                <button id="loginSubmit">Sign in</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <script src="app.js" defer></script>
+</body>
+
+</html>
