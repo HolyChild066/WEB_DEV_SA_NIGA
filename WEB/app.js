@@ -103,7 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('click', globalClickHandler);
 
+    // Room Modal Handlers
+    document.getElementById('roomModalClose').addEventListener('click', () => {
+        document.getElementById('roomModal').style.display = 'none';
+    });
+    document.getElementById('roomModalReserve').addEventListener('click', () => {
+        const id = document.getElementById('roomModalReserve').dataset.room;
+        if (id) {
+            document.getElementById('roomModal').style.display = 'none';
+            selectRoomForReservation(id);
+        }
+    });
+
     renderAll();
+
+    // Check for auto-signin
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('signin') === 'true' && !currentUser()) {
+        loginModal.style.display = 'flex';
+    }
 });
 
 /* Utilities */
@@ -127,17 +145,16 @@ function renderRooms() {
         const div = document.createElement('div');
         div.className = 'room';
         div.innerHTML = `
-      <div style="display:flex;flex-direction:column;align-items:center;min-width:46px;">
-        <div class="dot" style="background:${available ? 'var(--success)' : 'var(--danger)'}"></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;">${available ? 'Available' : 'Booked'}</div>
+      <div style="display:flex; align-items:center; gap:15px;">
+        <div class="legend-dot ${available ? 'success' : 'danger'}" style="width:12px; height:12px;"></div>
+        <div>
+            <h3>${room.name} <span style="font-weight:400; font-size:14px; color:var(--muted);">(${room.id})</span></h3>
+            <div class="meta">${room.building} • Capacity: ${room.capacity} • ${room.features.join(', ')}</div>
+        </div>
       </div>
-      <div style="flex:1;">
-        <h3>${room.name} <span class="small muted" style="font-weight:500">(${room.id})</span></h3>
-        <div class="meta">${room.building} • capacity ${room.capacity} • ${room.features.join(', ') || '—'}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
-        <button class="secondary btn-view" data-room="${room.id}" style="background:#fff;color:var(--accent);">View</button>
-        <button class="btn-reserve" data-room="${room.id}">Reserve</button>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <button class="btn-view" data-room="${room.id}">View Details</button>
+        <button class="btn-reserve" data-room="${room.id}">Select Room</button>
       </div>
     `;
         roomsContainer.appendChild(div);
@@ -311,6 +328,7 @@ function handleLogout() {
 
 /* Global click delegation for view/reserve quick buttons */
 function globalClickHandler(e) {
+    // Handle "Mark finished"
     if (e.target.classList.contains('btn-finish')) {
         const id = e.target.dataset.id;
         const r = db.reservations.find(x => x.id === id);
@@ -320,24 +338,67 @@ function globalClickHandler(e) {
             toast('Only the requester or an admin can mark this as finished.', false);
             return;
         }
-        if (!confirm('Mark this reservation as finished and release the room?')) return;
         markFinished(id);
         return;
     }
 
+    // Handle "View Details"
     if (e.target.classList.contains('btn-view')) {
-        const roomId = e.target.dataset.room;
-        const date = filterDate.value;
-        const list = db.reservations.filter(r => r.roomId === roomId && r.date === date);
-        if (list.length === 0) { toast('No reservations for this room on this date.', true); return; }
-        toast(`${roomName(roomId)} — ${list.length} reservation(s) on ${date}`, false);
+        const id = e.target.dataset.room;
+        openRoomModal(id);
+        return;
     }
+
+    // Handle "Select Room"
     if (e.target.classList.contains('btn-reserve')) {
-        const roomId = e.target.dataset.room;
-        roomSelect.value = roomId;
-        resDate.value = filterDate.value;
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        const id = e.target.dataset.room;
+        selectRoomForReservation(id);
+        return;
     }
+}
+
+function openRoomModal(id) {
+    const room = db.rooms.find(r => r.id === id);
+    if (!room) return;
+
+    document.getElementById('modalRoomName').textContent = room.name;
+    document.getElementById('modalRoomInfo').innerHTML = `
+        <p><strong>Building:</strong> ${room.building}</p>
+        <p><strong>Capacity:</strong> ${room.capacity}</p>
+        <p><strong>Features:</strong> ${room.features.join(', ')}</p>
+    `;
+
+    // Show schedule for today
+    const today = filterDate.value;
+    const sched = db.reservations.filter(r => r.roomId === id && r.date === today && r.status === 'approved')
+        .sort((a, b) => a.fromTime.localeCompare(b.fromTime));
+
+    const schedContainer = document.getElementById('modalSchedule');
+    if (sched.length === 0) {
+        schedContainer.innerHTML = '<div class="small muted">No approved reservations today.</div>';
+    } else {
+        schedContainer.innerHTML = sched.map(r => `
+            <div style="font-size:13px; border-bottom:1px solid var(--border); padding:5px 0;">
+                <strong>${r.fromTime} - ${r.toTime}</strong>: ${r.purpose}
+            </div>
+        `).join('');
+    }
+
+    document.getElementById('roomModalReserve').dataset.room = id;
+    document.getElementById('roomModal').style.display = 'flex';
+}
+
+function selectRoomForReservation(id) {
+    roomSelect.value = id;
+    // Scroll to sidebar form if on mobile or just highlight it
+    if (window.innerWidth < 800) {
+        document.querySelector('.sidebar').scrollIntoView({ behavior: 'smooth' });
+    }
+    // Flash the form to indicate selection
+    const form = document.querySelector('.reservation-form');
+    form.style.transition = 'box-shadow 0.3s';
+    form.style.boxShadow = '0 0 0 2px var(--accent)';
+    setTimeout(() => form.style.boxShadow = 'none', 1000);
 }
 
 /* render everything */

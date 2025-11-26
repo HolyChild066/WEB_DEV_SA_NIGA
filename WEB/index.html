@@ -6,107 +6,159 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Reserve — Academic Building Room Management</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <div>
-                <h1>Reserve — Academic Building room management</h1>
+    <!-- Dark Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <div class="logo-icon"></div>
+                <h1>Reserve</h1>
             </div>
-            <div class="top-actions">
-                <div id="who" class="muted small">Not signed in</div>
-                <button id="loginBtn">Sign in</button>
-                <button id="logoutBtn" style="display:none;" class="secondary">Sign out</button>
-            </div>
-        </header>
+            <nav class="top-nav">
+                <div id="who" class="user-status">Not signed in</div>
+                <button id="loginBtn" class="btn-nav">Sign in</button>
+                <button id="logoutBtn" style="display:none;" class="btn-nav">Sign out</button>
+            </nav>
+        </div>
+    </header>
 
-        <div class="grid">
-            <!-- Left: Dashboard -->
-            <section class="card">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
-                    <strong>Room overview</strong>
-                    <div class="small muted">Date: <span id="todayLabel"></span></div>
-                </div>
+    <!-- Main Layout -->
+    <div class="layout-container">
 
-                <div class="date-row">
-                    <label style="min-width:58px;" class="small muted">For date</label>
+        <!-- Left Column: Main Content -->
+        <main class="main-content">
+
+            <!-- Filter Section (Flight Search Style) -->
+            <section class="filter-bar card">
+                <div class="filter-group">
+                    <label>Date</label>
                     <input type="date" id="filterDate">
-                    <select id="buildingFilter" style="width:160px;">
+                </div>
+                <div class="filter-group">
+                    <label>Floor</label>
+                    <select id="buildingFilter">
                         <option value="All">All floors</option>
                         <option value="2nd floor">2nd floor</option>
                         <option value="3rd floor">3rd floor</option>
                         <option value="4th floor">4th floor</option>
                     </select>
                 </div>
+                <div class="filter-info">
+                    Today: <span id="todayLabel"></span>
+                </div>
+            </section>
 
-                <div class="rooms card" id="roomsContainer" style="margin-top:12px;box-shadow:none;padding:0;"></div>
-
-                <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;">
-                    <div class="small muted">Legend:
+            <!-- Room List (Flight Cards Style) -->
+            <section class="rooms-section">
+                <div class="section-header">
+                    <h2>Available Rooms</h2>
+                    <div class="legend">
                         <span class="legend-dot success"></span>Available
                         <span class="legend-dot danger"></span>Booked
                     </div>
-                    <div class="small muted">Local data saved in browser</div>
                 </div>
-
-                <hr style="margin:14px 0;border:none;border-top:1px solid rgba(15,23,42,.04);">
-
-                <strong>Reservations (for selected date)</strong>
-                <div class="reservations-list" id="reservationsList"></div>
+                <div id="roomsContainer" class="rooms-list">
+                    <!-- Rooms injected here -->
+                </div>
             </section>
 
-            <!-- Right: Create reservation & admin -->
-            <aside class="card">
-                <strong>Create reservation</strong>
-                <div class="small muted" style="margin-bottom:8px;">Choose a room, date/time and purpose</div>
+        </main>
 
-                <div style="display:grid;gap:8px;">
-                    <label>Room
-                        <select id="roomSelect"></select>
-                    </label>
-                    <label>Date
-                        <input type="date" id="resDate" />
-                    </label>
-                    <label>From time
-                        <input type="time" id="fromTime" />
-                    </label>
-                    <label>To time
-                        <input type="time" id="toTime" />
-                    </label>
-                    <label>Purpose
-                        <textarea id="purpose" rows="2" placeholder="e.g. ACM meeting"></textarea>
-                    </label>
-                    <button id="createResBtn">Send reservation</button>
+        <!-- Right Column: Sidebar -->
+        <aside class="sidebar">
+
+            <!-- Reservation Form -->
+            <section class="reservation-form card" style="margin-top:0;">
+                <div class="form-header">
+                    <h2>Create Reservation</h2>
+                    <p class="sub-text">Enter reservation details</p>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Date</label>
+                        <input type="date" id="resDate">
+                    </div>
+                    <div class="form-group">
+                        <label>From</label>
+                        <input type="time" id="fromTime">
+                    </div>
+                    <div class="form-group">
+                        <label>To</label>
+                        <input type="time" id="toTime">
+                    </div>
+                    <div class="form-group full">
+                        <label>Purpose</label>
+                        <textarea id="purpose" rows="6" placeholder="e.g. ACM meeting"></textarea>
+                    </div>
                 </div>
 
-                <hr style="margin:14px 0;border:none;border-top:1px solid rgba(15,23,42,.04);">
-
-                <div id="adminArea" class="admin-panel">
-                    <strong>Admin panel</strong>
-                    <div class="small muted">Approve or decline incoming reservations</div>
-                    <div id="adminList" style="margin-top:10px;"></div>
+                <div class="form-actions">
+                    <button id="createResBtn" class="btn-primary full-width">Confirm Reservation</button>
                 </div>
+            </section>
 
-            </aside>
-        </div>
+            <!-- Summary / Reservations List -->
+            <div class="card sidebar-card">
+                <h3>Reservations</h3>
+                <p class="sub-text">For selected date</p>
+                <div id="reservationsList" class="sidebar-list"></div>
+            </div>
 
-        <footer>Built for school project • Semi-static demo using localStorage</footer>
+            <!-- Admin Panel -->
+            <div id="adminArea" class="card sidebar-card admin-panel">
+                <h3>Admin Panel</h3>
+                <p class="sub-text">Pending requests</p>
+                <div id="adminList" class="sidebar-list"></div>
+            </div>
+
+        </aside>
+
     </div>
 
-    <!-- Login modal -->
+    <footer>Built for school project • Semi-static demo using localStorage</footer>
+
+    <!-- Login Modal -->
     <div id="loginModal" class="modal" style="display:none;">
         <div class="login-box card">
-            <h3 style="margin:0 0 8px 0;">Sign in</h3>
+            <h3>Sign in</h3>
             <div class="small muted" style="margin-bottom:12px;">
                 Use demo accounts: <strong>student / student123</strong> or <strong>admin / admin123</strong>
             </div>
 
             <label>Username<input id="username" autocomplete="username" /></label>
             <label>Password<input id="password" type="password" autocomplete="current-password" /></label>
-            <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px;">
+            <div class="modal-actions">
                 <button id="loginCancel" class="secondary">Cancel</button>
                 <button id="loginSubmit">Sign in</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Details Modal -->
+    <div id="roomModal" class="modal" style="display:none;">
+        <div class="login-box card" style="max-width: 500px;">
+            <div class="modal-header"
+                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+                <h3 id="modalRoomName" style="margin:0;">Room Details</h3>
+                <button id="roomModalClose"
+                    style="background:none;border:none;font-size:20px;cursor:pointer;">&times;</button>
+            </div>
+
+            <div id="modalRoomInfo" style="margin-bottom:20px; color:var(--muted); font-size:14px;">
+                <!-- Injected info -->
+            </div>
+
+            <h4 style="margin:0 0 10px 0; font-size:14px; color:var(--header-bg);">Schedule for Today</h4>
+            <div id="modalSchedule" class="sidebar-list"
+                style="max-height:200px; overflow-y:auto; border:1px solid var(--border); border-radius:4px; padding:10px;">
+                <!-- Injected schedule -->
+            </div>
+
+            <div class="modal-actions" style="margin-top:20px;">
+                <button id="roomModalReserve" class="btn-primary">Reserve This Room</button>
             </div>
         </div>
     </div>
