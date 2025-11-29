@@ -1,65 +1,210 @@
-body {
-    font-family: Inter, san-serif;
+* {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)),
-        url('cover.jpg') no-repeat center center/cover;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+}
+
+/* Header Section */
+.header {
+    background: linear-gradient(135deg, #2b3e8f 0%, #3d52b8 100%);
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px 0 40px;
+}
+
+.header-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.header-title {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(45, 65, 110, 0.75), rgba(45, 65, 110, 0.75)),
+        url('Images/BG.png') no-repeat center center/cover;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     text-align: center;
-    color: #111;
+    padding: 60px 20px;
+    position: relative;
 }
 
-.landing-container {
-    background: #fff;
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgb(16, 24, 40, 0.0.08);
-    max-width: 500px;
+.hero-logos {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    align-items: center;
 }
 
-h1 {
-    font-size: 28px;
-    margin-bottom: 24px;
+.hero-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
-p {
-    font-size: 16px;
-    margin-bottom: 24px;
-    color: #6b7280;
+.hero-text {
+    margin-bottom: 30px;
 }
 
-.btn {
+.university-name {
+    color: white;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.highlight {
+    color: #ffd700;
+}
+
+.tagline {
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    padding: 12px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
     display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #2b3e8f;
+    padding: 15px 50px;
+    border-radius: 30px;
     text-decoration: none;
-    background: #2563eb;
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.7);
+    background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+}
+
+/* Values Section */
+.values {
+    background: white;
+    padding: 60px 20px;
+}
+
+.values-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 30px;
+    border: 2px solid #d0d0e8;
+    border-radius: 8px;
+}
+
+.value-card {
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-icon {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.value-title {
+    color: #2b3e8f;
+    font-size: 18px;
     font-weight: 600;
-    transition: 2s ease-in-out;
+    margin-bottom: 10px;
 }
 
-.btn:hover {
-    background: #1e40af;
+.value-description {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.5;
 }
 
-.btn-outline {
-    background: transparent;
-    border: 2px solid #2563eb;
-    color: #2563eb;
-    margin-left: 10px;
+/* Responsive Design */
+@media (max-width: 968px) {
+    .values-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header-title {
+        font-size: 20px;
+    }
+
+    .university-name {
+        font-size: 32px;
+    }
 }
 
-.btn-outline:hover {
-    background: #2563eb;
-    color: #fff;
-}
+@media (max-width: 600px) {
+    .values-container {
+        grid-template-columns: 1fr;
+    }
 
-footer {
-    margin-top: 24px;
-    font-size: 12px;
-    color: #6b7280;
+    .hero-logos {
+        gap: 20px;
+    }
+
+    .hero-logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .header-title {
+        font-size: 16px;
+    }
+
+    .university-name {
+        font-size: 24px;
+    }
+
+    .tagline {
+        font-size: 14px;
+    }
 }
