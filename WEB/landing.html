@@ -27,7 +27,7 @@
             <h2 class="university-name">DAVAO ORIENTAL <span class="highlight">STATE UNIVERSITY</span></h2>
             <p class="tagline">A University of Excellence, Innovation, and Inclusion</p>
         </div>
-        <a href="index.html" class="cta-button">Enter System</a>
+        <button class="cta-button" onclick="openLoginModal()">Enter System</button>
     </section>
 
     <!-- Core Values Section -->
@@ -55,6 +55,51 @@
             </div>
         </div>
     </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeLoginModal()">&times;</span>
+            <h2 class="modal-title">Login to System</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            // Redirect to index.html after login
+            window.location.href = 'index.html';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function (event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                closeLoginModal();
+            }
+        }
+    </script>
 </body>
 
 </html>
