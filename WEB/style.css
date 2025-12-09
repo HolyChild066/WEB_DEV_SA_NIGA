@@ -387,7 +387,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 2000;
 }
 
 .login-box {
@@ -443,7 +443,244 @@ button {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* ========================================
+   LANDING PAGE STYLES
+   ======================================== */
+
+/* Landing Page Container */
+#landingPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+#landingPage.hidden {
+    display: none;
+}
+
+/* Landing Header */
+.landing-header {
+    background: linear-gradient(135deg, #2b3e8f 0%, #3d52b8 100%);
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.landing-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px 0 40px;
+}
+
+.landing-header-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.landing-header-title {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* Landing Hero Section */
+.landing-hero {
+    background: linear-gradient(rgba(45, 65, 110, 0.75), rgba(45, 65, 110, 0.75)),
+        url('Images/BG.png') no-repeat center center/cover;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.landing-hero-logos {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.landing-hero-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.landing-hero-text {
+    margin-bottom: 30px;
+}
+
+.landing-university-name {
+    color: white;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.landing-highlight {
+    color: #ffd700;
+}
+
+.landing-tagline {
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    padding: 12px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.landing-cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #2b3e8f;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.landing-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.7);
+    background: linear-gradient(135deg, #ffed4e 0%, #ffd700 100%);
+}
+
+/* Landing Values Section */
+.landing-values {
+    background: white;
+    padding: 60px 20px;
+}
+
+.landing-values-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 30px;
+    border: 2px solid #d0d0e8;
+    border-radius: 8px;
+}
+
+.landing-value-card {
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.landing-value-card:hover {
+    transform: translateY(-5px);
+}
+
+.landing-value-icon {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.landing-value-title {
+    color: #2b3e8f;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.landing-value-description {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Enhanced Modal with Blur */
+.modal {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal .login-box {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Main App Container */
+#mainApp {
+    display: none;
+}
+
+#mainApp.visible {
+    display: block;
+}
+
+/* ========================================
+   RESPONSIVE STYLES
+   ======================================== */
+
 /* Responsive */
+@media (max-width: 968px) {
+    .landing-values-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .landing-header-title {
+        font-size: 20px;
+    }
+
+    .landing-university-name {
+        font-size: 32px;
+    }
+}
+
 @media (max-width: 800px) {
     .layout-container {
         grid-template-columns: 1fr;
@@ -469,5 +706,32 @@ button {
 
     .form-group.full {
         grid-column: span 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .landing-values-container {
+        grid-template-columns: 1fr;
+    }
+
+    .landing-hero-logos {
+        gap: 20px;
+    }
+
+    .landing-hero-logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .landing-header-title {
+        font-size: 16px;
+    }
+
+    .landing-university-name {
+        font-size: 24px;
+    }
+
+    .landing-tagline {
+        font-size: 14px;
     }
 }

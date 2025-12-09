@@ -62,7 +62,9 @@ let roomsContainer, roomSelect, reservationsList, adminList, adminArea, who, log
 let db = loadDB();
 
 document.addEventListener('DOMContentLoaded', () => {
-    // grab DOM refs
+    // ========================================
+    // GRAB DOM REFERENCES FIRST
+    // ========================================
     roomsContainer = document.getElementById('roomsContainer');
     roomSelect = document.getElementById('roomSelect');
     reservationsList = document.getElementById('reservationsList');
@@ -86,34 +88,69 @@ document.addEventListener('DOMContentLoaded', () => {
     buildingFilter = document.getElementById('buildingFilter');
     toastWrap = document.getElementById('toastWrap');
 
+    // ========================================
+    // LANDING PAGE FLOW
+    // ========================================
+    const landingPage = document.getElementById('landingPage');
+    const mainApp = document.getElementById('mainApp');
+    const enterSystemBtn = document.getElementById('enterSystemBtn');
+
+    // Check if user is already logged in
+    const user = currentUser();
+    if (user) {
+        // User is logged in, skip landing page and show main app
+        landingPage.classList.add('hidden');
+        mainApp.classList.add('visible');
+    } else {
+        // Show landing page
+        landingPage.classList.remove('hidden');
+        mainApp.classList.remove('visible');
+    }
+
+    // Handle "Enter System" button click
+    enterSystemBtn.addEventListener('click', () => {
+        loginModal.style.display = 'flex';
+    });
+
+    // ========================================
+    // INITIALIZE DEFAULTS AND HANDLERS
+    // ========================================
+
     // init defaults and handlers
     const today = new Date().toISOString().slice(0, 10);
     filterDate.value = today;
     resDate.value = today;
     todayLabel.textContent = today;
 
-    loginBtn.addEventListener('click', () => loginModal.style.display = 'flex');
-    loginCancel.addEventListener('click', () => loginModal.style.display = 'none');
-    loginSubmit.addEventListener('click', handleLogin);
-    logoutBtn.addEventListener('click', handleLogout);
-    createResBtn.addEventListener('click', handleCreateReservation);
+    if (loginBtn) loginBtn.addEventListener('click', () => loginModal.style.display = 'flex');
+    if (loginCancel) loginCancel.addEventListener('click', () => loginModal.style.display = 'none');
+    if (loginSubmit) loginSubmit.addEventListener('click', handleLogin);
+    if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+    if (createResBtn) createResBtn.addEventListener('click', handleCreateReservation);
 
-    filterDate.addEventListener('change', renderAll);
-    buildingFilter.addEventListener('change', renderAll);
+    if (filterDate) filterDate.addEventListener('change', renderAll);
+    if (buildingFilter) buildingFilter.addEventListener('change', renderAll);
 
     document.addEventListener('click', globalClickHandler);
 
     // Room Modal Handlers
-    document.getElementById('roomModalClose').addEventListener('click', () => {
-        document.getElementById('roomModal').style.display = 'none';
-    });
-    document.getElementById('roomModalReserve').addEventListener('click', () => {
-        const id = document.getElementById('roomModalReserve').dataset.room;
-        if (id) {
+    const closeRoomModal = document.getElementById('roomModalClose');
+    if (closeRoomModal) {
+        closeRoomModal.addEventListener('click', () => {
             document.getElementById('roomModal').style.display = 'none';
-            selectRoomForReservation(id);
-        }
-    });
+        });
+    }
+
+    const roomModalReserve = document.getElementById('roomModalReserve');
+    if (roomModalReserve) {
+        roomModalReserve.addEventListener('click', () => {
+            const id = roomModalReserve.dataset.room;
+            if (id) {
+                document.getElementById('roomModal').style.display = 'none';
+                selectRoomForReservation(id);
+            }
+        });
+    }
 
     renderAll();
 
@@ -317,6 +354,13 @@ function handleLogin() {
     setCurrentUser(found);
     loginModal.style.display = 'none';
     usernameInput.value = ''; passwordInput.value = '';
+
+    // Hide landing page and show main app
+    const landingPage = document.getElementById('landingPage');
+    const mainApp = document.getElementById('mainApp');
+    if (landingPage) landingPage.classList.add('hidden');
+    if (mainApp) mainApp.classList.add('visible');
+
     toast(`Signed in as ${found.displayName}`, true);
     renderAll();
 }

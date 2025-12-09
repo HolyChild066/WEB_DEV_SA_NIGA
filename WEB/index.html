@@ -10,123 +10,185 @@
 </head>
 
 <body>
-    <!-- Dark Header -->
-    <header class="main-header">
-        <div class="header-content">
-            <div class="logo-area">
-                <div class="logo-icon"></div>
-                <h1>Reserve</h1>
+    <!-- ========================================
+         LANDING PAGE
+         ======================================== -->
+    <div id="landingPage">
+        <!-- Landing Header -->
+        <header class="landing-header">
+            <div class="landing-header-content">
+                <img src="Images/LOGO.png" alt="University Logo" class="landing-header-logo">
+                <h1 class="landing-header-title">Academic Building Room Reservation</h1>
             </div>
-            <nav class="top-nav">
-                <div id="who" class="user-status">Not signed in</div>
-                <button id="loginBtn" class="btn-nav">Sign in</button>
-                <button id="logoutBtn" style="display:none;" class="btn-nav">Sign out</button>
-            </nav>
-        </div>
-    </header>
+        </header>
 
-    <!-- Main Layout -->
-    <div class="layout-container">
-
-        <!-- Left Column: Main Content -->
-        <main class="main-content">
-
-            <!-- Filter Section (Flight Search Style) -->
-            <section class="filter-bar card">
-                <div class="filter-group">
-                    <label>Date</label>
-                    <input type="date" id="filterDate">
-                </div>
-                <div class="filter-group">
-                    <label>Floor</label>
-                    <select id="buildingFilter">
-                        <option value="All">All floors</option>
-                        <option value="2nd floor">2nd floor</option>
-                        <option value="3rd floor">3rd floor</option>
-                        <option value="4th floor">4th floor</option>
-                    </select>
-                </div>
-                <div class="filter-info">
-                    Today: <span id="todayLabel"></span>
-                </div>
-            </section>
-
-            <!-- Room List (Flight Cards Style) -->
-            <section class="rooms-section">
-                <div class="section-header">
-                    <h2>Available Rooms</h2>
-                    <div class="legend">
-                        <span class="legend-dot success"></span>Available
-                        <span class="legend-dot danger"></span>Booked
-                    </div>
-                </div>
-                <div id="roomsContainer" class="rooms-list">
-                    <!-- Rooms injected here -->
-                </div>
-            </section>
-
-        </main>
-
-        <!-- Right Column: Sidebar -->
-        <aside class="sidebar">
-
-            <!-- Reservation Form -->
-            <section class="reservation-form card" style="margin-top:0;">
-                <div class="form-header">
-                    <h2>Create Reservation</h2>
-                    <p class="sub-text">Enter reservation details</p>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group full">
-                        <label>Room</label>
-                        <select id="roomSelect">
-                            <option value="">Select a room...</option>
-                        </select>
-                    </div>
-                    <div class="form-group full">
-                        <label>Date</label>
-                        <input type="date" id="resDate">
-                    </div>
-                    <div class="form-group">
-                        <label>From</label>
-                        <input type="time" id="fromTime">
-                    </div>
-                    <div class="form-group">
-                        <label>To</label>
-                        <input type="time" id="toTime">
-                    </div>
-                    <div class="form-group full">
-                        <label>Purpose</label>
-                        <textarea id="purpose" rows="6" placeholder="e.g. ACM meeting"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-actions">
-                    <button id="createResBtn" class="btn-primary full-width">Confirm Reservation</button>
-                </div>
-            </section>
-
-            <!-- Summary / Reservations List -->
-            <div class="card sidebar-card">
-                <h3>Reservations</h3>
-                <p class="sub-text">For selected date</p>
-                <div id="reservationsList" class="sidebar-list"></div>
+        <!-- Landing Hero Section -->
+        <section class="landing-hero">
+            <div class="landing-hero-logos">
+                <img src="Images/LOGO.png" alt="University Logo" class="landing-hero-logo">
+                <img src="Images/Bagong Pilipinas.png" alt="Bagong Pilipinas" class="landing-hero-logo">
             </div>
-
-            <!-- Admin Panel -->
-            <div id="adminArea" class="card sidebar-card admin-panel">
-                <h3>Admin Panel</h3>
-                <p class="sub-text">Pending requests</p>
-                <div id="adminList" class="sidebar-list"></div>
+            <div class="landing-hero-text">
+                <h2 class="landing-university-name">DAVAO ORIENTAL <span class="landing-highlight">STATE
+                        UNIVERSITY</span></h2>
+                <p class="landing-tagline">A University of Excellence, Innovation, and Inclusion</p>
             </div>
+            <button class="landing-cta-button" id="enterSystemBtn">Enter System</button>
+        </section>
 
-        </aside>
-
+        <!-- Landing Core Values Section -->
+        <section class="landing-values">
+            <div class="landing-values-container">
+                <div class="landing-value-card">
+                    <img src="Images/Excellence.png" alt="Excellence" class="landing-value-icon">
+                    <h3 class="landing-value-title">Excellence</h3>
+                    <p class="landing-value-description">Striving excellence in instruction, RDE and Production</p>
+                </div>
+                <div class="landing-value-card">
+                    <img src="Images/Innovation.png" alt="Innovation" class="landing-value-icon">
+                    <h3 class="landing-value-title">Innovation</h3>
+                    <p class="landing-value-description">Continuing process of success</p>
+                </div>
+                <div class="landing-value-card">
+                    <img src="Images/Inclusion.png" alt="Inclusion" class="landing-value-icon">
+                    <h3 class="landing-value-title">Inclusion</h3>
+                    <p class="landing-value-description">Equal access to opportunities and resources</p>
+                </div>
+                <div class="landing-value-card">
+                    <img src="Images/Smart_Regenerative.png" alt="Smart Regenerative" class="landing-value-icon">
+                    <h3 class="landing-value-title">Smart Regenerative</h3>
+                    <p class="landing-value-description">Natural regenerative processes</p>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <footer>Built for school project • Semi-static demo using localStorage</footer>
+    <!-- ========================================
+         MAIN APPLICATION
+         ======================================== -->
+    <div id="mainApp">
 
-    <!-- Login Modal -->
+        <!-- Dark Header -->
+        <header class="main-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="logo-icon"></div>
+                    <h1>Reserve</h1>
+                </div>
+                <nav class="top-nav">
+                    <div id="who" class="user-status">Not signed in</div>
+                    <button id="loginBtn" class="btn-nav">Sign in</button>
+                    <button id="logoutBtn" style="display:none;" class="btn-nav">Sign out</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="layout-container">
+
+            <!-- Left Column: Main Content -->
+            <main class="main-content">
+
+                <!-- Filter Section (Flight Search Style) -->
+                <section class="filter-bar card">
+                    <div class="filter-group">
+                        <label>Date</label>
+                        <input type="date" id="filterDate">
+                    </div>
+                    <div class="filter-group">
+                        <label>Floor</label>
+                        <select id="buildingFilter">
+                            <option value="All">All floors</option>
+                            <option value="2nd floor">2nd floor</option>
+                            <option value="3rd floor">3rd floor</option>
+                            <option value="4th floor">4th floor</option>
+                        </select>
+                    </div>
+                    <div class="filter-info">
+                        Today: <span id="todayLabel"></span>
+                    </div>
+                </section>
+
+                <!-- Room List (Flight Cards Style) -->
+                <section class="rooms-section">
+                    <div class="section-header">
+                        <h2>Available Rooms</h2>
+                        <div class="legend">
+                            <span class="legend-dot success"></span>Available
+                            <span class="legend-dot danger"></span>Booked
+                        </div>
+                    </div>
+                    <div id="roomsContainer" class="rooms-list">
+                        <!-- Rooms injected here -->
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Right Column: Sidebar -->
+            <aside class="sidebar">
+
+                <!-- Reservation Form -->
+                <section class="reservation-form card" style="margin-top:0;">
+                    <div class="form-header">
+                        <h2>Create Reservation</h2>
+                        <p class="sub-text">Enter reservation details</p>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label>Room</label>
+                            <select id="roomSelect">
+                                <option value="">Select a room...</option>
+                            </select>
+                        </div>
+                        <div class="form-group full">
+                            <label>Date</label>
+                            <input type="date" id="resDate">
+                        </div>
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="time" id="fromTime">
+                        </div>
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="time" id="toTime">
+                        </div>
+                        <div class="form-group full">
+                            <label>Purpose</label>
+                            <textarea id="purpose" rows="6" placeholder="e.g. ACM meeting"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="createResBtn" class="btn-primary full-width">Confirm Reservation</button>
+                    </div>
+                </section>
+
+                <!-- Summary / Reservations List -->
+                <div class="card sidebar-card">
+                    <h3>Reservations</h3>
+                    <p class="sub-text">For selected date</p>
+                    <div id="reservationsList" class="sidebar-list"></div>
+                </div>
+
+                <!-- Admin Panel -->
+                <div id="adminArea" class="card sidebar-card admin-panel">
+                    <h3>Admin Panel</h3>
+                    <p class="sub-text">Pending requests</p>
+                    <div id="adminList" class="sidebar-list"></div>
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <footer></footer>
+
+    </div>
+    <!-- End Main App -->
+
+    <!-- Login Modal (shared between landing and main app) -->
     <div id="loginModal" class="modal" style="display:none;">
         <div class="login-box card">
             <h3>Sign in</h3>
@@ -170,6 +232,9 @@
     </div>
 
     <div class="toast-wrap" id="toastWrap"></div>
+
+    </div>
+    <!-- End Main App -->
 
     <script src="app.js" defer></script>
 </body>
