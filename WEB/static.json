@@ -1,6 +1,0 @@
-{
-  "root": "WEB",
-  "routes": {
-    "/": "landing.html"
-  }
-}
